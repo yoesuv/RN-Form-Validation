@@ -7,6 +7,10 @@ export default function Splash({ navigation }) {
       <Text>Splash Screen</Text>
       <Button title='Login' onPress={() => {
         navigation.navigate('Login');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login' }]
+        });
       }}/>
     </View>
   );
