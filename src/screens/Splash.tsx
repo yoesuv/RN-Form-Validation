@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function Splash({ navigation }) {
+  setTimeout(() => {
+    navigation.navigate('Login');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }]
+    });
+  }, 3000);
   return (
     <View style={styles.container}>
-      <Text>Splash Screen</Text>
-      <Button title='Login' onPress={() => {
-        navigation.navigate('Login');
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Login' }]
-        });
-      }}/>
+      <Text style={styles.textSplash}>Form Login & Register</Text>
     </View>
   );
 }
@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textSplash: {
+    fontSize: 24,
+    fontWeight: 'bold'
+  }
 });
 
 export default Splash;
