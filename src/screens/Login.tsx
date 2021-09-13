@@ -17,7 +17,7 @@ export default function Login({ navigation }) {
 
   const schema = yup.object().shape({
     email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
-    password: yup.string('enter a password').required('enter a password')
+    password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character')
   });
 
   const { control, handleSubmit, formState: { errors } } = useForm<ILoginInput>({
