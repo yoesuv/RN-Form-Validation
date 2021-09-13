@@ -6,6 +6,7 @@ Build Basic Form for Login & Register using React Native.
 #### List Package ####
 - [React Hook Form](https://react-hook-form.com/)
 - [React Navigation](https://reactnavigation.org/)
+- [yup](https://github.com/jquense/yup)
 
 #### Source ####
 - [ReactHookForm](https://react-hook-form.com/get-started#ReactNative)

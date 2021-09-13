@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
@@ -12,11 +15,20 @@ export default function Login({ navigation }) {
     password: String;
   }
 
-  const { control, handleSubmit } = useForm<ILoginInput>();
+  const schema = yup.object().shape({
+    email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
+    password: yup.string('enter a password').required('enter a password')
+  });
+
+  const { control, handleSubmit, formState: { errors } } = useForm<ILoginInput>({
+    resolver: yupResolver(schema)
+  });
 
   const onSubmit = handleSubmit(({email, password}) => {
     Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
   });
+
+  //console.log(errors);
 
   return (
     <View style={styles.container}>
@@ -27,18 +39,26 @@ export default function Login({ navigation }) {
           control={control}
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              autoCapitalize="none"
-              autoCompleteType="email"
-              autoCorrect={false}
-              keyboardType="email-address"
-              returnKeyType="next"
-              textContentType="username"
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-            />
+            <View>
+              <TextInput
+                autoCapitalize="none"
+                autoCompleteType="email"
+                autoCorrect={false}
+                keyboardType="email-address"
+                returnKeyType="next"
+                textContentType="username"
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+              { errors.email &&
+                <View>
+                  <SizedBox height={2} />
+                  <Text style={styles.labelError} >{errors?.email?.message}</Text>
+                </View>
+              }
+            </View>
           )}
         />
 
@@ -49,18 +69,26 @@ export default function Login({ navigation }) {
           control={control}
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              autoCapitalize="none"
-              autoCompleteType="password"
-              autoCorrect={false}
-              returnKeyType="done"
-              secureTextEntry
-              textContentType="password"
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-            />
+            <View>
+              <TextInput
+                autoCapitalize="none"
+                autoCompleteType="password"
+                autoCorrect={false}
+                returnKeyType="done"
+                secureTextEntry
+                textContentType="password"
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+              { errors.password &&
+                <View>
+                  <SizedBox height={2} />
+                  <Text style={styles.labelError} >{errors?.password?.message}</Text>
+                </View>
+              }
+            </View>
           )}
         />
 
@@ -68,7 +96,6 @@ export default function Login({ navigation }) {
         <Button title='Login' onPress={onSubmit}/>
         <SizedBox height={20} />
         <Button title='Register' onPress={() => {
-          console.log('go to Register');
           navigation.navigate('Register');
         }}/>
       </KeyboardAvoidingView>
@@ -86,6 +113,10 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  labelError: {
+    fontSize: 12,
+    color: 'red'
   },
   input: {
     borderColor:'#EEEEEE',
