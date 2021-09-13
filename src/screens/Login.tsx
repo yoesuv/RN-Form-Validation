@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, KeyboardAvoidingView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput } from 'react-native';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import SizedBox from '../components/SizedBox';
+import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
 
 export default function Login({ navigation }) {
@@ -43,11 +44,11 @@ export default function Login({ navigation }) {
         />
 
         <SizedBox height={20} />
-        <Button color='#009688' title='Login' onPress={() => {
+        <Button title='Login' onPress={() => {
           console.log('Login');
         }}/>
         <SizedBox height={20} />
-        <Button color='#009688' title='Register' onPress={() => {
+        <Button title='Register' onPress={() => {
           console.log('go to Register');
           navigation.navigate('Register');
         }}/>
