@@ -20,7 +20,8 @@ export default function Login({ navigation }) {
     password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character')
   });
 
-  const { control, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
+  const { control, register, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
+    mode: 'onChange',
     resolver: yupResolver(schema)
   });
 
@@ -45,7 +46,7 @@ export default function Login({ navigation }) {
                 autoCompleteType="email"
                 autoCorrect={false}
                 keyboardType="email-address"
-                returnKeyType="next"
+                returnKeyType="done"
                 textContentType="username"
                 style={styles.input}
                 onBlur={onBlur}
@@ -93,7 +94,7 @@ export default function Login({ navigation }) {
         />
 
         <SizedBox height={20} />
-        <Button title='Login' disabled={!isDirty || !isValid} onPress={onSubmit}/>
+        <Button title='Login' disabled={!isValid || !isDirty} onPress={onSubmit}/>
         <SizedBox height={20} />
         <Button title='Register' disabled={false} onPress={() => {
           navigation.navigate('Register');

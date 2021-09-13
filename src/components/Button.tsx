@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { THEME_COLOR, BUTTON_DISABLED } from '../data/Colors';
 
 export default function Button(props) {
   const { onPress, title = 'Save', disabled = false} = props;
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
-    backgroundColor: '#009688',
+    backgroundColor: THEME_COLOR,
   },
   buttonDisabled: {
     alignItems: 'center',
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
-    backgroundColor: '#9E9E9E',
+    backgroundColor: BUTTON_DISABLED,
   },
   text: {
     fontSize: 16,
