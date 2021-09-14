@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Splash from './src/screens/Splash';
+import Login from './src/screens/Login';
+import Register from './src/screens/Register';
+import { THEME_COLOR, HEADER_TINT_COLOR } from './src/data/Colors';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Splash" component={Splash} options={{headerShown: false}} />
+        <Stack.Screen name="Login" component={Login} options={{
+          title: 'Login',
+          headerStyle: {
+            backgroundColor: THEME_COLOR
+          },
+          headerTintColor: HEADER_TINT_COLOR,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }
+        }} />
+        <Stack.Screen name="Register" component={Register} options={{
+          title: 'Register',
+          headerStyle: {
+            backgroundColor: THEME_COLOR
+          },
+          headerTintColor: HEADER_TINT_COLOR,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }
+        }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
