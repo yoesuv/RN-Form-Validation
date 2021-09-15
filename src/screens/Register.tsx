@@ -22,7 +22,7 @@ export default function Register({ navigation }) {
   const [eyeOffConfirm, setEyeOffConfirm] = useState(true)
 
   const schema = yup.object().shape({
-    fullname: yup.string('enter a valid fullname').required('enter an fullname').matches(new RegExp(/^[a-zA-Z ]*$/), 'input is not correct'),
+    fullname: yup.string('enter a valid fullname').required('enter an fullname').matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), 'input is not correct'),
     email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
     password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character'),
     confirmpassword: yup.string('enter a password').test('passwords-match', 'Passwords must match', function(value){
