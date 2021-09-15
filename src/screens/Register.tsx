@@ -12,6 +12,7 @@ import { THEME_COLOR } from '../data/Colors';
 export default function Register({ navigation }) {
 
   interface IRegisterInput {
+    fullname: String;
     email: String;
     password: String;
     confirmpassword: String;
@@ -21,6 +22,7 @@ export default function Register({ navigation }) {
   const [eyeOffConfirm, setEyeOffConfirm] = useState(true)
 
   const schema = yup.object().shape({
+    fullname: yup.string('enter a valid fullname').required('enter an fullname').matches(new RegExp(/^[a-zA-Z ]*$/), 'input is not correct'),
     email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
     password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character'),
     confirmpassword: yup.string('enter a password').test('passwords-match', 'Passwords must match', function(value){
@@ -33,8 +35,8 @@ export default function Register({ navigation }) {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = handleSubmit(({email, password}) => {
-    Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
+  const onSubmit = handleSubmit(({fullname, email, password}) => {
+    Alert.alert('Data', `Fullname: ${fullname}\nEmail: ${email}\nPassword: ${password}`);
   });
 
   const { isDirty, isValid } = formState;
@@ -42,6 +44,35 @@ export default function Register({ navigation }) {
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <Text style={styles.label}>Full Name</Text>
+        <SizedBox height={5} />
+        <Controller
+          control={control}
+          name="fullname"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View>
+              <TextInput
+                autoCapitalize="none"
+                autoCompleteType="name"
+                autoCorrect={false}
+                returnKeyType="done"
+                textContentType="name"
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+              { errors.fullname &&
+                <View>
+                  <SizedBox height={2} />
+                  <Text style={styles.labelError} >{errors?.fullname?.message}</Text>
+                </View>
+              }
+            </View>
+          )}
+        />
+
+        <SizedBox height={10} />
         <Text style={styles.label}>Email</Text>
         <SizedBox height={5} />
         <Controller
