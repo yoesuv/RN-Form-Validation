@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import IconFA from 'react-native-vector-icons/FontAwesome5';
 
 import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
@@ -14,6 +15,8 @@ export default function Login({ navigation }) {
     email: String;
     password: String;
   }
+
+  const [eyeOff, setEyeOff] = useState(true)
 
   const schema = yup.object().shape({
     email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
@@ -71,18 +74,33 @@ export default function Login({ navigation }) {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <View>
-              <TextInput
-                autoCapitalize="none"
-                autoCompleteType="password"
-                autoCorrect={false}
-                returnKeyType="done"
-                secureTextEntry
-                textContentType="password"
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
+              <View style={styles.containerInput}>
+                <TextInput
+                  secureTextEntry={eyeOff}
+                  autoCapitalize="none"
+                  autoCompleteType="password"
+                  autoCorrect={false}
+                  returnKeyType="done"
+                  textContentType="password"
+                  style={[styles.inputPassword, { flex: 1 }]}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+                  <IconFA
+                    name={eyeOff ? 'eye-slash' : 'eye'}
+                    size={18}
+                    color={'#000000'}
+                    solid
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 100 / 2,
+                      textAlignVertical: 'center',
+                      marginHorizontal: 15
+                    }}
+                    onPress={() => setEyeOff(!eyeOff)}
+                  />
+              </View>
               { errors.password &&
                 <View>
                   <SizedBox height={2} />
@@ -119,11 +137,23 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'red'
   },
+  containerInput: {
+    flexDirection: 'row',
+    borderColor:'#EEEEEE',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 8,
+  },
   input: {
     borderColor:'#EEEEEE',
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: 8,
+    height: 40,
+    paddingVertical: 10,
+    paddingHorizontal: 10
+  },
+  inputPassword: {
     height: 40,
     paddingVertical: 10,
     paddingHorizontal: 10
