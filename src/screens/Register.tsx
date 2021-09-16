@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert, Platform } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -9,7 +9,7 @@ import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
 
-export default function Register({ navigation }) {
+export default function Register() {
 
   interface IRegisterInput {
     fullname: String;
@@ -22,10 +22,10 @@ export default function Register({ navigation }) {
   const [eyeOffConfirm, setEyeOffConfirm] = useState(true)
 
   const schema = yup.object().shape({
-    fullname: yup.string('enter a valid fullname').required('enter an fullname').matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), 'input is not correct'),
-    email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
-    password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character'),
-    confirmpassword: yup.string('enter a password').test('passwords-match', 'Passwords must match', function(value){
+    fullname: yup.string().required('enter an fullname').matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), 'input is not correct'),
+    email: yup.string().email('enter a valid email').required('enter an email'),
+    password: yup.string().required('enter a password').min(5, 'password min 5 character'),
+    confirmpassword: yup.string().test('passwords-match', 'Passwords must match', function(value){
       return this.parent.password === value
     })
   });
@@ -118,7 +118,7 @@ export default function Register({ navigation }) {
                   autoCorrect={false}
                   returnKeyType="done"
                   textContentType="password"
-                  style={[styles.inputPassword, { flex: 1 }]}
+                  style={styles.inputPassword}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -128,13 +128,7 @@ export default function Register({ navigation }) {
                     size={18}
                     color={'#000000'}
                     solid
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      borderRadius: 100 / 2,
-                      textAlignVertical: 'center',
-                      marginHorizontal: 15
-                      // textAlign: 'center',
-                    }}
+                    style={styles.icon}
                     onPress={() => setEyeOff(!eyeOff)}
                   />
               </View>
@@ -164,7 +158,7 @@ export default function Register({ navigation }) {
                   autoCorrect={false}
                   returnKeyType="done"
                   textContentType="password"
-                  style={[styles.inputPassword, { flex: 1 }]}
+                  style={styles.inputPassword}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -174,12 +168,7 @@ export default function Register({ navigation }) {
                     size={18}
                     color={'#000000'}
                     solid
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      borderRadius: 100 / 2,
-                      textAlignVertical: 'center',
-                      marginHorizontal: 15
-                    }}
+                    style={styles.icon}
                     onPress={() => setEyeOffConfirm(!eyeOffConfirm)}
                   />
               </View>
@@ -233,13 +222,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   inputPassword: {
+    flex: 1,
     height: 40,
     paddingVertical: 10,
     paddingHorizontal: 10
   },
   button: {
     color: THEME_COLOR
+  },
+  icon: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 100 / 2,
+    textAlignVertical: 'center',
+    marginHorizontal: 15
   }
 });
-
-export default Register;

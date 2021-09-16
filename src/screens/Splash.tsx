@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function Splash({ navigation }) {
+export default function Splash({ navigation }: {
+  navigation: any;
+}) {
   setTimeout(() => {
     navigation.navigate('Login');
     navigation.reset({
@@ -28,5 +30,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
-
-export default Splash;

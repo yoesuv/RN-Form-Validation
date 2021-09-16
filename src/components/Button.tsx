@@ -1,9 +1,14 @@
 import React from 'react';
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
 import { THEME_COLOR, BUTTON_DISABLED } from '../data/Colors';
 
-export default function Button(props) {
-  const { onPress, title = 'Save', disabled = false} = props;
+interface ButtonProps {
+  onPress: (event: GestureResponderEvent) => void;
+  title?: String;
+  disabled?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({onPress, title = 'Save', disabled = false}) => {
     return (
       <Pressable disabled={disabled} style={disabled ? styles.buttonDisabled : styles.button} onPress={onPress}>
         <Text style={styles.text}>{title}</Text>
@@ -36,3 +41,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+export default Button

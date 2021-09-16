@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert, Platform } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -9,7 +9,9 @@ import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
 
-export default function Login({ navigation }) {
+export default function Login({ navigation }: {
+  navigation: any;
+}) {
 
   interface ILoginInput {
     email: String;
@@ -19,8 +21,8 @@ export default function Login({ navigation }) {
   const [eyeOff, setEyeOff] = useState(true)
 
   const schema = yup.object().shape({
-    email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
-    password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character')
+    email: yup.string().email('enter a valid email').required('enter an email'),
+    password: yup.string().required('enter a password').min(5, 'password min 5 character')
   });
 
   const { control, register, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
@@ -54,7 +56,7 @@ export default function Login({ navigation }) {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value}
+                value={value ?? ''}
               />
               { errors.email &&
                 <View>
@@ -162,5 +164,3 @@ const styles = StyleSheet.create({
     color: THEME_COLOR
   }
 });
-
-export default Login;
