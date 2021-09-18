@@ -8,10 +8,15 @@ import IconFA from 'react-native-vector-icons/FontAwesome5';
 import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../screens/RootStackParams';
 
-export default function Login({ navigation }: {
-  navigation: any;
-}) {
+type loginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
+export default function Login() {
+
+  const navigation = useNavigation<loginScreenProp>();
 
   interface ILoginInput {
     email: String;
