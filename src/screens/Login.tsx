@@ -1,26 +1,36 @@
-import React from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert, Platform } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import * as Yup from 'yup';
+import IconFA from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
+import { RootStackParamList } from '../screens/RootStackParams';
 
-export default function Login({ navigation }) {
+type loginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
+export default function Login() {
+
+  const navigation = useNavigation<loginScreenProp>();
 
   interface ILoginInput {
     email: String;
     password: String;
   }
 
-  const schema = yup.object().shape({
-    email: yup.string('enter a valid email').email('enter a valid email').required('enter an email'),
-    password: yup.string('enter a password').required('enter a password').min(5, 'password min 5 character')
+  const [eyeOff, setEyeOff] = useState(true)
+
+  const schema = Yup.object().shape({
+    email: Yup.string().email('enter a valid email').required('enter an email'),
+    password: Yup.string().required('enter a password').min(5, 'password min 5 character')
   });
 
-  const { control, register, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
+  const { control, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
     mode: 'onChange',
     resolver: yupResolver(schema)
   });
@@ -51,7 +61,7 @@ export default function Login({ navigation }) {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value}
+                value={value ?? ''}
               />
               { errors.email &&
                 <View>
@@ -71,18 +81,33 @@ export default function Login({ navigation }) {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <View>
-              <TextInput
-                autoCapitalize="none"
-                autoCompleteType="password"
-                autoCorrect={false}
-                returnKeyType="done"
-                secureTextEntry
-                textContentType="password"
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
+              <View style={styles.containerInput}>
+                <TextInput
+                  secureTextEntry={eyeOff}
+                  autoCapitalize="none"
+                  autoCompleteType="password"
+                  autoCorrect={false}
+                  returnKeyType="done"
+                  textContentType="password"
+                  style={[styles.inputPassword, { flex: 1 }]}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+                  <IconFA
+                    name={eyeOff ? 'eye-slash' : 'eye'}
+                    size={18}
+                    color={'#000000'}
+                    solid
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 100 / 2,
+                      textAlignVertical: 'center',
+                      marginHorizontal: 15
+                    }}
+                    onPress={() => setEyeOff(!eyeOff)}
+                  />
+              </View>
               { errors.password &&
                 <View>
                   <SizedBox height={2} />
@@ -119,6 +144,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'red'
   },
+  containerInput: {
+    flexDirection: 'row',
+    borderColor:'#EEEEEE',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 8,
+  },
   input: {
     borderColor:'#EEEEEE',
     borderWidth: 1,
@@ -128,9 +160,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10
   },
+  inputPassword: {
+    height: 40,
+    paddingVertical: 10,
+    paddingHorizontal: 10
+  },
   button: {
     color: THEME_COLOR
   }
 });
-
-export default Login;

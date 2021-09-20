@@ -1,23 +1,19 @@
 import React from 'react';
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Text, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
 import { THEME_COLOR, BUTTON_DISABLED } from '../data/Colors';
 
-export default function Button(props) {
-  const { onPress, title = 'Save', disabled = false} = props;
-  if (disabled) {
-    return (
-      <Pressable disable={true} style={styles.buttonDisabled}>
-        <Text style={styles.text}>{title}</Text>
-      </Pressable>
-    );
-  } else {
-    return (
-      <Pressable disable={false} style={styles.button} onPress={onPress}>
-        <Text style={styles.text}>{title}</Text>
-      </Pressable>
-    );
-  }
+interface ButtonProps {
+  onPress: (event: GestureResponderEvent) => void;
+  title?: String;
+  disabled?: boolean;
+}
 
+const Button: React.FC<ButtonProps> = ({onPress, title = 'Save', disabled = false}) => {
+    return (
+      <Pressable disabled={disabled} style={disabled ? styles.buttonDisabled : styles.button} onPress={onPress}>
+        <Text style={styles.text}>{title}</Text>
+      </Pressable>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -45,3 +41,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+export default Button
