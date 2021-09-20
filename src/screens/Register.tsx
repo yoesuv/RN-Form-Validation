@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert, Platform } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import * as Yup from 'yup';
 import IconFA from 'react-native-vector-icons/FontAwesome5';
 
 import SizedBox from '../components/SizedBox';
@@ -21,16 +21,16 @@ export default function Register() {
   const [eyeOff, setEyeOff] = useState(true)
   const [eyeOffConfirm, setEyeOffConfirm] = useState(true)
 
-  const schema = yup.object().shape({
-    fullname: yup.string().required('enter an fullname').matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), 'input is not correct'),
-    email: yup.string().email('enter a valid email').required('enter an email'),
-    password: yup.string().required('enter a password').min(5, 'password min 5 character'),
-    confirmpassword: yup.string().test('passwords-match', 'Passwords must match', function(value){
+  const schema = Yup.object().shape({
+    fullname: Yup.string().required('enter an fullname').matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), 'input is not correct'),
+    email: Yup.string().email('enter a valid email').required('enter an email'),
+    password: Yup.string().required('enter a password').min(5, 'password min 5 character'),
+    confirmpassword: Yup.string().test('passwords-match', 'Passwords must match', function(value){
       return this.parent.password === value
     })
   });
 
-  const { control, register, handleSubmit, formState, formState: { errors } } = useForm<IRegisterInput>({
+  const { control, handleSubmit, formState, formState: { errors } } = useForm<IRegisterInput>({
     mode: 'onChange',
     resolver: yupResolver(schema)
   });

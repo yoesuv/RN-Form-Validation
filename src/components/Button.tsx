@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
+import { Text, StyleSheet, Pressable, GestureResponderEvent } from 'react-native';
 import { THEME_COLOR, BUTTON_DISABLED } from '../data/Colors';
 
 interface ButtonProps {

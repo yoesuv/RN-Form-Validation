@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Alert, Platform } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import * as Yup from 'yup';
 import IconFA from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import SizedBox from '../components/SizedBox';
 import Button from '../components/Button';
 import { THEME_COLOR } from '../data/Colors';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../screens/RootStackParams';
 
 type loginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
@@ -25,12 +25,12 @@ export default function Login() {
 
   const [eyeOff, setEyeOff] = useState(true)
 
-  const schema = yup.object().shape({
-    email: yup.string().email('enter a valid email').required('enter an email'),
-    password: yup.string().required('enter a password').min(5, 'password min 5 character')
+  const schema = Yup.object().shape({
+    email: Yup.string().email('enter a valid email').required('enter an email'),
+    password: Yup.string().required('enter a password').min(5, 'password min 5 character')
   });
 
-  const { control, register, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
+  const { control, handleSubmit, formState, formState: { errors } } = useForm<ILoginInput>({
     mode: 'onChange',
     resolver: yupResolver(schema)
   });
