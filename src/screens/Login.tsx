@@ -60,7 +60,7 @@ export default function Login() {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value.toString() ?? ''}
+                value={value ? value.toString() : ''}
               />
               { errors.email &&
                 <View>
@@ -90,7 +90,7 @@ export default function Login() {
                   style={[styles.inputPassword, { flex: 1 }]}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value.toString() ?? ''}
+                  value={value ? value.toString() : ''}
                 />
                   <IconFA
                     name={eyeOff ? 'eye-slash' : 'eye'}

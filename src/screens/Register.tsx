@@ -59,7 +59,7 @@ export default function Register() {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value.toString() ?? ''}
+                value={value ? value.toString() : ''}
               />
               { errors.fullname &&
                 <View>
@@ -88,7 +88,7 @@ export default function Register() {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value.toString() ?? ''}
+                value={value ? value.toString() : ''}
               />
               { errors.email &&
                 <View>
@@ -118,7 +118,7 @@ export default function Register() {
                   style={styles.inputPassword}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value.toString() ?? ''}
+                  value={value ? value.toString() : ''}
                 />
                   <IconFA
                     name={eyeOff ? 'eye-slash' : 'eye'}
@@ -157,7 +157,7 @@ export default function Register() {
                   style={styles.inputPassword}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value.toString() ?? ''}
+                  value={value ? value.toString() : ''}
                 />
                   <IconFA
                     name={eyeOffConfirm ? 'eye-slash' : 'eye'}
