@@ -53,14 +53,13 @@ export default function Register() {
             <View>
               <TextInput
                 autoCapitalize="none"
-                autoCompleteType="name"
                 autoCorrect={false}
                 returnKeyType="done"
                 textContentType="name"
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value}
+                value={value ? value.toString() : ''}
               />
               { errors.fullname &&
                 <View>
@@ -82,7 +81,6 @@ export default function Register() {
             <View>
               <TextInput
                 autoCapitalize="none"
-                autoCompleteType="email"
                 autoCorrect={false}
                 keyboardType="email-address"
                 returnKeyType="done"
@@ -90,7 +88,7 @@ export default function Register() {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value}
+                value={value ? value.toString() : ''}
               />
               { errors.email &&
                 <View>
@@ -114,14 +112,13 @@ export default function Register() {
                 <TextInput
                   secureTextEntry={eyeOff}
                   autoCapitalize="none"
-                  autoCompleteType="password"
                   autoCorrect={false}
                   returnKeyType="done"
                   textContentType="password"
                   style={styles.inputPassword}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value}
+                  value={value ? value.toString() : ''}
                 />
                   <IconFA
                     name={eyeOff ? 'eye-slash' : 'eye'}
@@ -154,14 +151,13 @@ export default function Register() {
                 <TextInput
                   secureTextEntry={eyeOffConfirm}
                   autoCapitalize="none"
-                  autoCompleteType="password"
                   autoCorrect={false}
                   returnKeyType="done"
                   textContentType="password"
                   style={styles.inputPassword}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value}
+                  value={value ? value.toString() : ''}
                 />
                   <IconFA
                     name={eyeOffConfirm ? 'eye-slash' : 'eye'}

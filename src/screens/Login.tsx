@@ -53,7 +53,6 @@ export default function Login() {
             <View>
               <TextInput
                 autoCapitalize="none"
-                autoCompleteType="email"
                 autoCorrect={false}
                 keyboardType="email-address"
                 returnKeyType="done"
@@ -61,7 +60,7 @@ export default function Login() {
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value ?? ''}
+                value={value ? value.toString() : ''}
               />
               { errors.email &&
                 <View>
@@ -85,14 +84,13 @@ export default function Login() {
                 <TextInput
                   secureTextEntry={eyeOff}
                   autoCapitalize="none"
-                  autoCompleteType="password"
                   autoCorrect={false}
                   returnKeyType="done"
                   textContentType="password"
                   style={[styles.inputPassword, { flex: 1 }]}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value}
+                  value={value ? value.toString() : ''}
                 />
                   <IconFA
                     name={eyeOff ? 'eye-slash' : 'eye'}
