@@ -10,12 +10,13 @@ const Stack = createNativeStackNavigator();
 const baseOptions: NativeStackNavigationOptions = {
     title: 'Login',
     headerStyle: {
-    backgroundColor: THEME_COLOR
+        backgroundColor: THEME_COLOR,
     },
     headerTintColor: HEADER_TINT_COLOR,
     headerTitleStyle: {
-    fontWeight: 'bold',
+        fontWeight: 'bold',
     },
+    statusBarColor: THEME_COLOR,
 }
 
 const AppNavigation = () => {
