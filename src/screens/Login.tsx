@@ -19,8 +19,8 @@ export default function Login() {
   const navigation = useNavigation<loginScreenProp>();
 
   interface ILoginInput {
-    email: String;
-    password: String;
+    email: string;
+    password: string;
   }
 
   const [eyeOff, setEyeOff] = useState(true)
