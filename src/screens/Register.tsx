@@ -12,10 +12,10 @@ import { THEME_COLOR } from '../data/Colors';
 export default function Register() {
 
   interface IRegisterInput {
-    fullname: String;
-    email: String;
-    password: String;
-    confirmpassword: String;
+    fullname: string;
+    email: string;
+    password: string;
+    confirmpassword: string|undefined;
   }
 
   const [eyeOff, setEyeOff] = useState(true)
