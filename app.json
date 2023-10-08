@@ -2,7 +2,7 @@
   "expo": {
     "name": "Form-Login-Register",
     "slug": "Form-Login-Register",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "updates": {
@@ -17,7 +17,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#009688"
       },
       "package": "com.yoesuv.FormLoginRegister"
     },
