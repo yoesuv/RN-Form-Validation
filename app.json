@@ -2,15 +2,21 @@
   "expo": {
     "name": "Form-Login-Register",
     "slug": "Form-Login-Register",
-    "version": "1.0.3",
+    "version": "1.0.4",
+    "android.versionCode": "1",
+    "ios.buildNumber": "1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
