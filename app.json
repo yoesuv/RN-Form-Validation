@@ -25,6 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#009688"
       },
+      "edgeToEdgeEnabled": true,
       "package": "com.yoesuv.FormLoginRegister"
     },
     "web": {
