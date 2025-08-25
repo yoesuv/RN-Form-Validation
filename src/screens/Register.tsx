@@ -11,7 +11,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import IconFA from "react-native-vector-icons/FontAwesome5";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
@@ -149,7 +149,7 @@ export default function Register() {
                   onChangeText={onChange}
                   value={value ? value.toString() : ""}
                 />
-                <IconFA
+                <FontAwesome5
                   name={eyeOff ? "eye-slash" : "eye"}
                   size={18}
                   color={"#000000"}
@@ -190,7 +190,7 @@ export default function Register() {
                   onChangeText={onChange}
                   value={value ? value.toString() : ""}
                 />
-                <IconFA
+                <FontAwesome5
                   name={eyeOffConfirm ? "eye-slash" : "eye"}
                   size={18}
                   color={"#000000"}
