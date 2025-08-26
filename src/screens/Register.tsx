@@ -10,12 +10,12 @@ import {
 } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
 import { THEME_COLOR } from "../data/Colors";
+import { registerSchema } from "../utils/validation";
 
 export default function Register() {
   interface IRegisterInput {
@@ -28,23 +28,6 @@ export default function Register() {
   const [eyeOff, setEyeOff] = useState(true);
   const [eyeOffConfirm, setEyeOffConfirm] = useState(true);
 
-  const schema = Yup.object().shape({
-    fullname: Yup.string()
-      .required("enter an fullname")
-      .matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), "input is not correct"),
-    email: Yup.string().email("enter a valid email").required("enter an email"),
-    password: Yup.string()
-      .required("enter a password")
-      .min(5, "password min 5 character"),
-    confirmpassword: Yup.string().test(
-      "passwords-match",
-      "Passwords must match",
-      function (value) {
-        return this.parent.password === value;
-      }
-    ),
-  });
-
   const {
     control,
     handleSubmit,
@@ -52,7 +35,7 @@ export default function Register() {
     formState: { errors },
   } = useForm<IRegisterInput>({
     mode: "onChange",
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = handleSubmit(({ fullname, email, password }) => {

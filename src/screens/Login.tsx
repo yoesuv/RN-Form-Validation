@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -19,6 +18,7 @@ import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
 import { THEME_COLOR } from "../data/Colors";
 import { RootStackParamList } from "../screens/RootStackParams";
+import { loginSchema } from "../utils/validation";
 
 type loginScreenProp = StackNavigationProp<RootStackParamList, "Login">;
 
@@ -32,13 +32,6 @@ export default function Login() {
 
   const [eyeOff, setEyeOff] = useState(true);
 
-  const schema = Yup.object().shape({
-    email: Yup.string().email("enter a valid email").required("enter an email"),
-    password: Yup.string()
-      .required("enter a password")
-      .min(5, "password min 5 character"),
-  });
-
   const {
     control,
     handleSubmit,
@@ -46,7 +39,7 @@ export default function Login() {
     formState: { errors },
   } = useForm<ILoginInput>({
     mode: "onChange",
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
 
   const onSubmit = handleSubmit(({ email, password }) => {
