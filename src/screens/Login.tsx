@@ -16,7 +16,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
 import PasswordInput from "../components/PasswordInput";
-import { THEME_COLOR } from "../data/Colors";
 import { RootStackParamList } from "../screens/RootStackParams";
 import { loginSchema } from "../utils/validation";
 
@@ -141,13 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red",
   },
-  containerInput: {
-    flexDirection: "row",
-    borderColor: "#EEEEEE",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 8,
-  },
   input: {
     borderColor: "#EEEEEE",
     borderWidth: 1,
@@ -156,13 +148,5 @@ const styles = StyleSheet.create({
     height: 40,
     paddingVertical: 10,
     paddingHorizontal: 10,
-  },
-  inputPassword: {
-    height: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
-    color: THEME_COLOR,
   },
 });
