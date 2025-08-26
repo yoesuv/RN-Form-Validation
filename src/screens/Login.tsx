@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -10,12 +10,12 @@ import {
 } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
+import PasswordInput from "../components/PasswordInput";
 import { THEME_COLOR } from "../data/Colors";
 import { RootStackParamList } from "../screens/RootStackParams";
 import { loginSchema } from "../utils/validation";
@@ -29,8 +29,6 @@ export default function Login() {
     email: string;
     password: string;
   }
-
-  const [eyeOff, setEyeOff] = useState(true);
 
   const {
     control,
@@ -91,32 +89,12 @@ export default function Login() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <View>
-              <View style={styles.containerInput}>
-                <TextInput
-                  secureTextEntry={eyeOff}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  returnKeyType="done"
-                  textContentType="password"
-                  style={[styles.inputPassword, { flex: 1 }]}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value ? value.toString() : ""}
-                />
-                <FontAwesome5
-                  name={eyeOff ? "eye-slash" : "eye"}
-                  size={18}
-                  color={"#000000"}
-                  solid
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    borderRadius: 100 / 2,
-                    textAlignVertical: "center",
-                    marginHorizontal: 15,
-                  }}
-                  onPress={() => setEyeOff(!eyeOff)}
-                />
-              </View>
+              <PasswordInput
+                value={value ? value.toString() : ""}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                textContentType="password"
+              />
               {errors.password && (
                 <View>
                   <SizedBox height={2} />
