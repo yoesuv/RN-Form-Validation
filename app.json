@@ -3,8 +3,6 @@
     "name": "Form-Login-Register",
     "slug": "Form-Login-Register",
     "version": "1.0.5",
-    "android.versionCode": "1",
-    "ios.buildNumber": "1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -38,8 +34,6 @@
         "projectId": "24abb242-deef-42a7-ad3e-431f172ff768"
       }
     },
-    "plugins": [
-      "expo-font"
-    ]
+    "plugins": ["expo-font"]
   }
 }
