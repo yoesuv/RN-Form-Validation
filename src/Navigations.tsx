@@ -20,6 +20,7 @@ const baseOptions: NativeStackNavigationOptions = {
     fontWeight: "bold",
   },
   statusBarStyle: "dark",
+  headerShown: true,
 };
 
 const AppNavigation = () => {

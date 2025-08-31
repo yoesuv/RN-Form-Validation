@@ -8,6 +8,7 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -44,7 +45,7 @@ export default function Register() {
   const { isDirty, isValid } = formState;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -168,7 +169,7 @@ export default function Register() {
         />
         <SizedBox height={20} />
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 
