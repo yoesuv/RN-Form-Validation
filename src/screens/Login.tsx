@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -10,15 +10,15 @@ import {
 } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import IconFA from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
-import { THEME_COLOR } from "../data/Colors";
+import PasswordInput from "../components/PasswordInput";
 import { RootStackParamList } from "../screens/RootStackParams";
+import { loginSchema } from "../utils/validation";
 
 type loginScreenProp = StackNavigationProp<RootStackParamList, "Login">;
 
@@ -30,15 +30,6 @@ export default function Login() {
     password: string;
   }
 
-  const [eyeOff, setEyeOff] = useState(true);
-
-  const schema = Yup.object().shape({
-    email: Yup.string().email("enter a valid email").required("enter an email"),
-    password: Yup.string()
-      .required("enter a password")
-      .min(5, "password min 5 character"),
-  });
-
   const {
     control,
     handleSubmit,
@@ -46,7 +37,7 @@ export default function Login() {
     formState: { errors },
   } = useForm<ILoginInput>({
     mode: "onChange",
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
 
   const onSubmit = handleSubmit(({ email, password }) => {
@@ -56,7 +47,7 @@ export default function Login() {
   const { isDirty, isValid } = formState;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -98,32 +89,12 @@ export default function Login() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <View>
-              <View style={styles.containerInput}>
-                <TextInput
-                  secureTextEntry={eyeOff}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  returnKeyType="done"
-                  textContentType="password"
-                  style={[styles.inputPassword, { flex: 1 }]}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value ? value.toString() : ""}
-                />
-                <IconFA
-                  name={eyeOff ? "eye-slash" : "eye"}
-                  size={18}
-                  color={"#000000"}
-                  solid
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    borderRadius: 100 / 2,
-                    textAlignVertical: "center",
-                    marginHorizontal: 15,
-                  }}
-                  onPress={() => setEyeOff(!eyeOff)}
-                />
-              </View>
+              <PasswordInput
+                value={value ? value.toString() : ""}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                textContentType="password"
+              />
               {errors.password && (
                 <View>
                   <SizedBox height={2} />
@@ -151,7 +122,7 @@ export default function Login() {
           }}
         />
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -170,13 +141,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red",
   },
-  containerInput: {
-    flexDirection: "row",
-    borderColor: "#EEEEEE",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 8,
-  },
   input: {
     borderColor: "#EEEEEE",
     borderWidth: 1,
@@ -185,13 +149,5 @@ const styles = StyleSheet.create({
     height: 40,
     paddingVertical: 10,
     paddingHorizontal: 10,
-  },
-  inputPassword: {
-    height: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
-    color: THEME_COLOR,
   },
 });

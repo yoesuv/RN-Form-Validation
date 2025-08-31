@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,14 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import IconFA from "react-native-vector-icons/FontAwesome5";
 
 import SizedBox from "../components/SizedBox";
 import Button from "../components/Button";
-import { THEME_COLOR } from "../data/Colors";
+import PasswordInput from "../components/PasswordInput";
+import { registerSchema } from "../utils/validation";
 
 export default function Register() {
   interface IRegisterInput {
@@ -25,26 +25,6 @@ export default function Register() {
     confirmpassword?: string | undefined;
   }
 
-  const [eyeOff, setEyeOff] = useState(true);
-  const [eyeOffConfirm, setEyeOffConfirm] = useState(true);
-
-  const schema = Yup.object().shape({
-    fullname: Yup.string()
-      .required("enter an fullname")
-      .matches(new RegExp(/^[a-zA-Z][a-zA-Z'., ]*$/), "input is not correct"),
-    email: Yup.string().email("enter a valid email").required("enter an email"),
-    password: Yup.string()
-      .required("enter a password")
-      .min(5, "password min 5 character"),
-    confirmpassword: Yup.string().test(
-      "passwords-match",
-      "Passwords must match",
-      function (value) {
-        return this.parent.password === value;
-      }
-    ),
-  });
-
   const {
     control,
     handleSubmit,
@@ -52,7 +32,7 @@ export default function Register() {
     formState: { errors },
   } = useForm<IRegisterInput>({
     mode: "onChange",
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = handleSubmit(({ fullname, email, password }) => {
@@ -65,7 +45,7 @@ export default function Register() {
   const { isDirty, isValid } = formState;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -137,27 +117,12 @@ export default function Register() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <View>
-              <View style={styles.containerInput}>
-                <TextInput
-                  secureTextEntry={eyeOff}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  returnKeyType="done"
-                  textContentType="password"
-                  style={styles.inputPassword}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value ? value.toString() : ""}
-                />
-                <IconFA
-                  name={eyeOff ? "eye-slash" : "eye"}
-                  size={18}
-                  color={"#000000"}
-                  solid
-                  style={styles.icon}
-                  onPress={() => setEyeOff(!eyeOff)}
-                />
-              </View>
+              <PasswordInput
+                value={value ? value.toString() : ""}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                textContentType="newPassword"
+              />
               {errors.password && (
                 <View>
                   <SizedBox height={2} />
@@ -178,27 +143,12 @@ export default function Register() {
           name="confirmpassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <View>
-              <View style={styles.containerInput}>
-                <TextInput
-                  secureTextEntry={eyeOffConfirm}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  returnKeyType="done"
-                  textContentType="password"
-                  style={styles.inputPassword}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value ? value.toString() : ""}
-                />
-                <IconFA
-                  name={eyeOffConfirm ? "eye-slash" : "eye"}
-                  size={18}
-                  color={"#000000"}
-                  solid
-                  style={styles.icon}
-                  onPress={() => setEyeOffConfirm(!eyeOffConfirm)}
-                />
-              </View>
+              <PasswordInput
+                value={value ? value.toString() : ""}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                textContentType="password"
+              />
               {errors.confirmpassword && (
                 <View>
                   <SizedBox height={2} />
@@ -219,7 +169,7 @@ export default function Register() {
         />
         <SizedBox height={20} />
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -238,13 +188,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red",
   },
-  containerInput: {
-    flexDirection: "row",
-    borderColor: "#EEEEEE",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 8,
-  },
   input: {
     borderColor: "#EEEEEE",
     borderWidth: 1,
@@ -253,20 +196,5 @@ const styles = StyleSheet.create({
     height: 40,
     paddingVertical: 10,
     paddingHorizontal: 10,
-  },
-  inputPassword: {
-    flex: 1,
-    height: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
-    color: THEME_COLOR,
-  },
-  icon: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 100 / 2,
-    textAlignVertical: "center",
-    marginHorizontal: 15,
   },
 });

@@ -19,7 +19,8 @@ const baseOptions: NativeStackNavigationOptions = {
   headerTitleStyle: {
     fontWeight: "bold",
   },
-  statusBarColor: THEME_COLOR,
+  statusBarStyle: "dark",
+  headerShown: true,
 };
 
 const AppNavigation = () => {

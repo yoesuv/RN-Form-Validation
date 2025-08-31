@@ -2,9 +2,7 @@
   "expo": {
     "name": "Form-Login-Register",
     "slug": "Form-Login-Register",
-    "version": "1.0.4",
-    "android.versionCode": "1",
-    "ios.buildNumber": "1",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -25,6 +23,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#009688"
       },
+      "edgeToEdgeEnabled": true,
       "package": "com.yoesuv.FormLoginRegister"
     },
     "web": {
@@ -34,6 +33,7 @@
       "eas": {
         "projectId": "24abb242-deef-42a7-ad3e-431f172ff768"
       }
-    }
+    },
+    "plugins": ["expo-font"]
   }
 }
