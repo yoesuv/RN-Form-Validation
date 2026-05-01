@@ -22,7 +22,7 @@ export default function Register() {
     fullname: string;
     email: string;
     password: string;
-    confirmpassword?: string | undefined;
+    confirmpassword: string;
   }
 
   const {
@@ -38,7 +38,7 @@ export default function Register() {
   const onSubmit = handleSubmit(({ fullname, email, password }) => {
     Alert.alert(
       "Data",
-      `Fullname: ${fullname}\nEmail: ${email}\nPassword: ${password}`
+      `Fullname: ${fullname}\nEmail: ${email}\nPassword: ${password}`,
     );
   });
 
