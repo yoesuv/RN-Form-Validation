@@ -17,11 +17,7 @@ export const registerSchema = Yup.object().shape({
   password: Yup.string()
     .required("enter a password")
     .min(5, "password min 5 character"),
-  confirmpassword: Yup.string().test(
-    "passwords-match",
-    "Passwords must match",
-    function (value) {
-      return this.parent.password === value;
-    }
-  ),
+  confirmpassword: Yup.string()
+    .required("enter a confirmation password")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
 });
