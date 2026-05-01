@@ -5,8 +5,8 @@ import {
 } from "@react-navigation/native-stack";
 
 import Splash from "./screens/Splash";
-import Login from ".//screens/Login";
-import Register from ".//screens/Register";
+import Login from "./screens/Login";
+import Register from "./screens/Register";
 import { THEME_COLOR, HEADER_TINT_COLOR } from "./data/Colors";
 
 const Stack = createNativeStackNavigator();
